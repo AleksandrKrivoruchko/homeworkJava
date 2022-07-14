@@ -26,8 +26,9 @@ public class WaveAlgorithm {
     }
 
     public boolean findingPath() {
-        while (step < height*width) {
-            if(!moveWave())
+        int n = width * height;
+        while (step < n) {
+            if(moveWave())
                 return true;
         }
         return false;
@@ -40,6 +41,7 @@ public class WaveAlgorithm {
 
     private boolean moveWave() {
         if(dq.isEmpty()) {
+            step = width * height;
             return false;
         }
 
@@ -51,25 +53,25 @@ public class WaveAlgorithm {
 
             if (isNextStep(tmpX + 1, tmpY)) {
                 if (isFinish(tmpX + 1, tmpY)) {
-                    return false;
+                    return true;
                 }
                 setFreeCell(tmpX + 1, tmpY, tmpDq);
             }
             if (isNextStep(tmpX - 1, tmpY)) {
                 if (isFinish(tmpX - 1, tmpY)) {
-                    return false;
+                    return true;
                 }
                 setFreeCell(tmpX - 1, tmpY, tmpDq);
             }
             if (isNextStep(tmpX, tmpY + 1)) {
                 if (isFinish(tmpX, tmpY + 1)) {
-                    return false;
+                    return true;
                 }
                 setFreeCell(tmpX, tmpY + 1, tmpDq);
             }
             if (isNextStep(tmpX, tmpY - 1)) {
                 if (isFinish(tmpX, tmpY - 1)) {
-                    return false;
+                    return true;
                 }
                 setFreeCell(tmpX, tmpY - 1, tmpDq);
             }
@@ -78,7 +80,7 @@ public class WaveAlgorithm {
         step++;
         FindingPath.PrintMatrix(searchField);
         System.out.println(step);
-        return true;
+        return false;
     }
 
     private boolean isFinish(int i, int j) {

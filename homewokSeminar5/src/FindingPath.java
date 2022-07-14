@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class FindingPath {
     public static void main(String[] args) {
-        int w = 20;
-        int h = 20;
-        int startX = 10;
-        int startY = 10;
+        int w = 10;
+        int h = 10;
+        int startX = 1;
+        int startY = 1;
         int finishX = 7;
         int finishY = 3;
         int[][] board = new int[h][w];
