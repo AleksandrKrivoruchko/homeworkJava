@@ -5,6 +5,9 @@
 */*/out/
 */*/WaveAlgorithm/.idea/
 */*/WaveAlgorithm/
+*/.idea/
+*/*.iml
+*/out/
 
 # Log file
 *.log
