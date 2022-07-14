@@ -2,8 +2,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class WaveAlgorithm {
-    private int x;
-    private int y;
     private int step;
     private int[][] searchField;
     private Deque<int[]> dq;
@@ -14,15 +12,13 @@ public class WaveAlgorithm {
 
     public WaveAlgorithm(int[][] array, int x, int y) {
         searchField = array;
-        this.x = x;
-        this.y = y;
         step = 1;
         freeCell = 0;
         finishCell = -2;
         width = searchField[0].length;
         height = searchField.length;
         dq = new ArrayDeque<>();
-        dq.push(new int[]{this.y, this.x});
+        dq.push(new int[]{y, x});
     }
 
     public int[][] getSearchField() {
