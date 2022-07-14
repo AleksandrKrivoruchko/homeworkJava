@@ -23,7 +23,7 @@ public class FindingPath {
             }
         }
         PrintMatrix(board);
-        WaveAlgorithm wave = new WaveAlgorithm(board, startX, startY);
+        WaveAlgorithm wave = new WaveAlgorithm(board, startX, startY, finishX, finishY);
 
         System.out.println("\n");
         System.out.println(wave.findingPath());

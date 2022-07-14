@@ -9,12 +9,18 @@ public class WaveAlgorithm {
     private int height;
     private int freeCell;
     private int finishCell;
+    private int startCell;
+    private int endX;
+    private int endY;
 
-    public WaveAlgorithm(int[][] array, int x, int y) {
+    public WaveAlgorithm(int[][] array, int x, int y, int endX, int endY) {
         searchField = array;
+        this.endX = endX;
+        this.endY = endY;
         step = 1;
         freeCell = 0;
         finishCell = -2;
+        startCell = -1;
         width = searchField[0].length;
         height = searchField.length;
         dq = new ArrayDeque<>();
@@ -80,6 +86,15 @@ public class WaveAlgorithm {
         step++;
         FindingPath.PrintMatrix(searchField);
         System.out.println(step);
+        return false;
+    }
+
+
+
+    private boolean isStart(int i, int j) {
+        if(searchField[j][i] == startCell) {
+            return true;
+        }
         return false;
     }
 
