@@ -51,35 +51,23 @@ public class WaveAlgorithm {
             return false;
         }
 
-        Deque<int[]> tmpDq = new ArrayDeque();
+        Deque<int[]> tmpDq = new ArrayDeque<>();
         while (!dq.isEmpty()) {
             int[] tmp = dq.poll();
             int tmpX = tmp[1];
             int tmpY = tmp[0];
 
-            if (isNextStep(tmpX + 1, tmpY)) {
-                if (isFinish(tmpX + 1, tmpY)) {
+            if (nextMove(tmpX + 1, tmpY, tmpDq)) {
                     return true;
-                }
-                setFreeCell(tmpX + 1, tmpY, tmpDq);
             }
-            if (isNextStep(tmpX - 1, tmpY)) {
-                if (isFinish(tmpX - 1, tmpY)) {
+            if (nextMove(tmpX - 1, tmpY, tmpDq)) {
                     return true;
-                }
-                setFreeCell(tmpX - 1, tmpY, tmpDq);
             }
-            if (isNextStep(tmpX, tmpY + 1)) {
-                if (isFinish(tmpX, tmpY + 1)) {
+            if (nextMove(tmpX, tmpY + 1, tmpDq)) {
                     return true;
-                }
-                setFreeCell(tmpX, tmpY + 1, tmpDq);
             }
-            if (isNextStep(tmpX, tmpY - 1)) {
-                if (isFinish(tmpX, tmpY - 1)) {
+            if (nextMove(tmpX, tmpY - 1, tmpDq)) {
                     return true;
-                }
-                setFreeCell(tmpX, tmpY - 1, tmpDq);
             }
         }
         dq = tmpDq;
@@ -89,7 +77,15 @@ public class WaveAlgorithm {
         return false;
     }
 
-
+    private boolean nextMove(int i,int j, Deque<int[]> tmp) {
+        if(isNextStep(i,j)) {
+            if(isFinish(i,j)) {
+                return true;
+            }
+            setFreeCell(i,j,tmp);
+        }
+        return false;
+    }
 
     private boolean isStart(int i, int j) {
         if(searchField[j][i] == startCell) {
