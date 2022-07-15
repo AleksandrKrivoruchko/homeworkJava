@@ -31,6 +31,10 @@ public class WaveAlgorithm {
         return searchField;
     }
 
+    public Deque<int[]> getDq() {
+        return dq;
+    }
+
     public boolean findingPath() {
         int n = width * height;
         while (step < n) {
@@ -72,8 +76,6 @@ public class WaveAlgorithm {
         }
         dq = tmpDq;
         step++;
-        FindingPath.PrintMatrix(searchField);
-        System.out.println(step);
         return false;
     }
 
@@ -87,9 +89,43 @@ public class WaveAlgorithm {
         return false;
     }
 
-    private boolean isStart(int i, int j) {
-        if(searchField[j][i] == startCell) {
-            return true;
+    public boolean restoringPath() {
+        boolean findPath = findingPath();
+        if(!findPath) {
+            return false;
+        }
+        dq = new ArrayDeque<>();
+        step--;
+        int x = endX;
+        int y = endY;
+        while (step > 0) {
+            if(reverseCourse(x-1, y)) {
+                x--;
+                continue;
+            }
+            if(reverseCourse(x+1, y)) {
+                x++;
+                continue;
+            }
+            if(reverseCourse(x, y-1)) {
+                y--;
+                continue;
+            }
+            if(reverseCourse(x, y+1)) {
+                y++;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean reverseCourse(int i, int j) {
+        if(isReverseStep(i, j)) {
+            if(searchField[j][i] == step) {
+                dq.push(new int[] {j, i});
+                step--;
+                return true;
+            }
         }
         return false;
     }
@@ -99,6 +135,13 @@ public class WaveAlgorithm {
             return true;
         }
         return false;
+    }
+
+    private boolean isReverseStep(int i, int j) {
+        if(i < 0 || j < 0 || i > width - 1 || j > height - 1) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isNextStep(int i, int j) {
