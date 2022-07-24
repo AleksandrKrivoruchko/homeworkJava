@@ -4,7 +4,7 @@
 
 public class ExpressionCalc {
     public static void main(String[] args) {
-        String strExpr = "2? + ?5 = 63";
+        String strExpr = "2? + 35 = ?3";
         System.out.println(strExpr);
         RestoreExpression re = new RestoreExpression(strExpr);
         StringBuilder[] cb = re.getCbExpr();

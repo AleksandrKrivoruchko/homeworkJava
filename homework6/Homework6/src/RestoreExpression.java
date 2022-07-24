@@ -40,24 +40,29 @@ public class RestoreExpression {
     private void restoreDigit(int i, int j, int k) {
         int tmp = 0;
         int overArg = k > 0 ? overArgs[k-1] : 0;
-        if(i == arg0) {
-            tmp = calcDigit(getDigit(cbExpr[arg2].charAt(j)) -
-                    getDigit(cbExpr[arg1].charAt(j)) + overArg, k);
+        int a = cbExpr[arg0].charAt(j) == '?' ? 0 : getDigit(cbExpr[arg0].charAt(j));
+        int b = cbExpr[arg1].charAt(j) == '?' ? 0 : getDigit(cbExpr[arg1].charAt(j));
+        int c = cbExpr[arg2].charAt(j) == '?' ? 0 : getDigit(cbExpr[arg2].charAt(j));
+        if (i == arg0) {
+            tmp = calcDigit( c - b + overArg, k);
             cbExpr[arg0].setCharAt(j, getChar(tmp));
         }
-        if(i == arg1) {
-            tmp = calcDigit(getDigit(cbExpr[arg2].charAt(j)) -
-                    getDigit(cbExpr[arg0].charAt(j)) + overArg, k);
+        if (i == arg1) {
+            tmp = calcDigit(c - a + overArg, k);
             cbExpr[arg1].setCharAt(j, getChar(tmp));
+        }
+        if (i == arg2) {
+            tmp = calcDigit(a + b - overArg, k);
+            cbExpr[arg2].setCharAt(j, getChar(tmp));
         }
     }
 
     private int calcDigit(int x, int k) {
-        if(x < 0) {
+        if (x < 0) {
             overArgs[k] = -1;
             return x + 10;
         }
-        if(x > 9) {
+        if (x > 9) {
             overArgs[k] = 1;
             return x % 10;
         }
@@ -67,10 +72,10 @@ public class RestoreExpression {
 
     private void initializationQuestion() {
         question = new boolean[countArgs][];
-        for(int i = 0; i < cbExpr.length; i++) {
+        for (int i = 0; i < cbExpr.length; i++) {
             question[i] = new boolean[cbExpr[i].length()];
-            for(int j = 0; j < question[i].length; j++) {
-                if(cbExpr[i].charAt(j) == '?') {
+            for (int j = 0; j < question[i].length; j++) {
+                if (cbExpr[i].charAt(j) == '?') {
                     question[i][j] = true;
                 }
             }
@@ -82,7 +87,7 @@ public class RestoreExpression {
         cbExpr = new StringBuilder[countArgs];
         StringBuilder tmpSB = new StringBuilder();
         int j = 0;
-        for(int i = 0; i < tmpStr.length(); i++) {
+        for (int i = 0; i < tmpStr.length(); i++) {
             if (tmpStr.charAt(i) == '+' || tmpStr.charAt(i) == '=') {
                 cbExpr[j] = tmpSB ;
                 j++;
