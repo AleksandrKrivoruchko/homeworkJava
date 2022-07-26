@@ -4,7 +4,7 @@
 
 public class ExpressionCalc {
     public static void main(String[] args) {
-        String strExpr = "2? + 35 = ?3";
+        String strExpr = "2? + 65 = ??3";
         System.out.println(strExpr);
         RestoreExpression re = new RestoreExpression(strExpr);
 //        StringBuilder[] cb = re.getSbExpr();
@@ -12,13 +12,7 @@ public class ExpressionCalc {
 //            System.out.printf("%s  ", c);
 //        }
 //        System.out.println();
-//        boolean[][] q = re.getQuestion();
-//        for (boolean[] qArr : q) {
-//            for (boolean qArg : qArr) {
-//                System.out.printf("%s  ", qArg);
-//            }
-//            System.out.println();
-//        }
+
         int[] res = re.getRes();
         for (int x : res) {
             System.out.printf("%d ", x);

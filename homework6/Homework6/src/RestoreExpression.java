@@ -5,15 +5,12 @@ public class RestoreExpression {
     final private int arg1 = 1;
     final private int arg2 = 2;
     int index;
-    private int[] overArgs;
     private StringBuilder[] sbExpr;
-    private boolean[][] question;
     private int[] res;
     private int[] len;
     public RestoreExpression(String inputStr) {
         str = inputStr;
         parseToSB();
-        initializationQuestion();
         initializationLen();
         calcOneArgExpr();
     }
@@ -22,16 +19,11 @@ public class RestoreExpression {
         return sbExpr;
     }
 
-    public boolean[][] getQuestion() {
-        return question;
-    }
-
     public int[] getRes() {
         return res;
     }
 
     private void calcOneArgExpr() {
-        overArgs = new int[question[arg2].length];
         res = new int[countArgs];
         int k = 0;
         for (; len[arg2] >= 0; decrementLen()) {
@@ -51,6 +43,9 @@ public class RestoreExpression {
     private boolean fillArray(int k) {
         boolean flag = true;
         for(int i = 0; i < countArgs; i++) {
+            if(len[i] < 0) {
+                continue;
+            }
             int tmp = getDigit(sbExpr[i].charAt(len[i]));
             if(tmp == -1) {
                 index = i;
@@ -100,22 +95,10 @@ public class RestoreExpression {
         }
     }
 
-    private void initializationQuestion() {
-        question = new boolean[countArgs][];
-        for (int i = 0; i < sbExpr.length; i++) {
-            question[i] = new boolean[sbExpr[i].length()];
-            for (int j = 0; j < question[i].length; j++) {
-                if (sbExpr[i].charAt(j) == '?') {
-                    question[i][j] = true;
-                }
-            }
-        }
-    }
-
     private void initializationLen() {
         len = new int[countArgs];
         for(int i = 0; i < countArgs; i++) {
-            len[i] = question[i].length - 1;
+            len[i] = sbExpr[i].length() - 1;
         }
     }
 
