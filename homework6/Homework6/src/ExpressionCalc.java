@@ -7,17 +7,21 @@ public class ExpressionCalc {
         String strExpr = "2? + 35 = ?3";
         System.out.println(strExpr);
         RestoreExpression re = new RestoreExpression(strExpr);
-        StringBuilder[] cb = re.getCbExpr();
-        for(StringBuilder c : cb) {
-            System.out.printf("%s  ", c);
-        }
-        System.out.println();
-        boolean[][] q = re.getQuestion();
-        for (boolean[] qArr : q) {
-            for (boolean qArg : qArr) {
-                System.out.printf("%s  ", qArg);
-            }
-            System.out.println();
+//        StringBuilder[] cb = re.getSbExpr();
+//        for(StringBuilder c : cb) {
+//            System.out.printf("%s  ", c);
+//        }
+//        System.out.println();
+//        boolean[][] q = re.getQuestion();
+//        for (boolean[] qArr : q) {
+//            for (boolean qArg : qArr) {
+//                System.out.printf("%s  ", qArg);
+//            }
+//            System.out.println();
+//        }
+        int[] res = re.getRes();
+        for (int x : res) {
+            System.out.printf("%d ", x);
         }
     }
 }

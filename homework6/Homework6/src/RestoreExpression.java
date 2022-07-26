@@ -1,102 +1,139 @@
-import java.util.Locale;
-
 public class RestoreExpression {
     private String str;
-    private int countArgs = 3;
-    private int arg0 = 0;
-    private int arg1 = 1;
-    private int arg2 = 2;
+    final private int countArgs = 3;
+    final private int arg0 = 0;
+    final private int arg1 = 1;
+    final private int arg2 = 2;
+    int index;
     private int[] overArgs;
-    private StringBuilder[] cbExpr;
+    private StringBuilder[] sbExpr;
     private boolean[][] question;
+    private int[] res;
+    private int[] len;
     public RestoreExpression(String inputStr) {
         str = inputStr;
         parseToSB();
         initializationQuestion();
+        initializationLen();
         calcOneArgExpr();
     }
 
-    public StringBuilder[] getCbExpr() {
-        return cbExpr;
+    public StringBuilder[] getSbExpr() {
+        return sbExpr;
     }
 
     public boolean[][] getQuestion() {
         return question;
     }
 
-    private void calcOneArgExpr() {
-        overArgs = new int[question[arg2].length];
-        int k = 0;
-        for(int i = 0; i < countArgs; i++) {
-            for(int j = 0; j < question[i].length; j++) {
-                if(question[i][j]) {
-                    restoreDigit(i, j, k);
-                    k++;
-                }
-            }
-        }
+    public int[] getRes() {
+        return res;
     }
 
-    private void restoreDigit(int i, int j, int k) {
+    private void calcOneArgExpr() {
+        overArgs = new int[question[arg2].length];
+        res = new int[countArgs];
+        int k = 0;
+        for (; len[arg2] >= 0; decrementLen()) {
+            if(len[arg0] < 0) {
+                break;
+            }
+            if(fillArray(k)) {
+                k++;
+                continue;
+            }
+            restoreDigit(k);
+            k++;
+        }
+
+    }
+
+    private boolean fillArray(int k) {
+        boolean flag = true;
+        for(int i = 0; i < countArgs; i++) {
+            int tmp = getDigit(sbExpr[i].charAt(len[i]));
+            if(tmp == -1) {
+                index = i;
+                flag = false;
+                continue;
+            }
+            res[i] += tmp * degreeOfTen(k);
+        }
+        return flag;
+    }
+
+    private void restoreDigit(int k) {
         int tmp = 0;
-        int overArg = k > 0 ? overArgs[k-1] : 0;
-        int a = cbExpr[arg0].charAt(j) == '?' ? 0 : getDigit(cbExpr[arg0].charAt(j));
-        int b = cbExpr[arg1].charAt(j) == '?' ? 0 : getDigit(cbExpr[arg1].charAt(j));
-        int c = cbExpr[arg2].charAt(j) == '?' ? 0 : getDigit(cbExpr[arg2].charAt(j));
-        if (i == arg0) {
-            tmp = calcDigit( c - b + overArg, k);
-            cbExpr[arg0].setCharAt(j, getChar(tmp));
+        if (index == arg0) {
+            tmp = res[arg2] - res[arg1];
+            res[arg0] = calcDigit(tmp, k);
+            return;
         }
-        if (i == arg1) {
-            tmp = calcDigit(c - a + overArg, k);
-            cbExpr[arg1].setCharAt(j, getChar(tmp));
+        if (index == arg1) {
+            tmp = res[arg2] - res[arg0];
+            res[arg1] = calcDigit(tmp, k);
+            return;
         }
-        if (i == arg2) {
-            tmp = calcDigit(a + b - overArg, k);
-            cbExpr[arg2].setCharAt(j, getChar(tmp));
+        if (index == arg2) {
+            res[arg2] = res[arg0] + res[arg1];
         }
     }
 
     private int calcDigit(int x, int k) {
         if (x < 0) {
-            overArgs[k] = -1;
-            return x + 10;
+            return x + degreeOfTen(k + 1);
         }
-        if (x > 9) {
-            overArgs[k] = 1;
-            return x % 10;
-        }
-        overArgs[k] = 0;
         return x;
+    }
+
+    private int degreeOfTen(int n) {
+        int number = 1;
+        for(int i = 0; i < n; i++) {
+            number *= 10;
+        }
+        return number;
+    }
+
+    private void decrementLen() {
+        for(int i = 0; i < countArgs; i++) {
+            len[i]--;
+        }
     }
 
     private void initializationQuestion() {
         question = new boolean[countArgs][];
-        for (int i = 0; i < cbExpr.length; i++) {
-            question[i] = new boolean[cbExpr[i].length()];
+        for (int i = 0; i < sbExpr.length; i++) {
+            question[i] = new boolean[sbExpr[i].length()];
             for (int j = 0; j < question[i].length; j++) {
-                if (cbExpr[i].charAt(j) == '?') {
+                if (sbExpr[i].charAt(j) == '?') {
                     question[i][j] = true;
                 }
             }
         }
     }
 
+    private void initializationLen() {
+        len = new int[countArgs];
+        for(int i = 0; i < countArgs; i++) {
+            len[i] = question[i].length - 1;
+        }
+    }
+
     private void parseToSB() {
         String tmpStr = str.trim().replace(" ", "");
-        cbExpr = new StringBuilder[countArgs];
+        sbExpr = new StringBuilder[countArgs];
         StringBuilder tmpSB = new StringBuilder();
         int j = 0;
         for (int i = 0; i < tmpStr.length(); i++) {
             if (tmpStr.charAt(i) == '+' || tmpStr.charAt(i) == '=') {
-                cbExpr[j] = tmpSB ;
+                sbExpr[j] = tmpSB;
                 j++;
                 tmpSB = new StringBuilder();
                 continue;
             }
             tmpSB.append(tmpStr.charAt(i));
         }
-        cbExpr[j] = tmpSB;
+        sbExpr[j] = tmpSB;
     }
 
     private int getDigit(char ch) {
@@ -114,6 +151,7 @@ public class RestoreExpression {
             default -> -1;
         };
     }
+
     private char getChar(int x) {
         return switch (x) {
             case 0 -> '0';
