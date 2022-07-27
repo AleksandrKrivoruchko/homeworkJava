@@ -4,7 +4,7 @@
 
 public class ExpressionCalc {
     public static void main(String[] args) {
-        String strExpr = "9? + ??5 = ?93";
+        String strExpr = "9? + ?95 = ?93";
         System.out.println(strExpr);
         RestoreExpression re = new RestoreExpression(strExpr);
 

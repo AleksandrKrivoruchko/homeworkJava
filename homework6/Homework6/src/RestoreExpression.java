@@ -141,7 +141,7 @@ public class RestoreExpression {
                 continue;
             }
             if(fillArray(k)) {
-                if (res[arg0] + res[arg1] != res[arg2]) {
+                if ((res[arg0] + res[arg1]) % degreeOfTen(k+1) != res[arg2]) {
                     return false;
                 }
                 k++;
