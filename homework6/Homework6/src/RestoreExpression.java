@@ -4,7 +4,7 @@ public class RestoreExpression {
     final private int arg0 = 0;
     final private int arg1 = 1;
     final private int arg2 = 2;
-    int index;
+    private int index;
     private StringBuilder[] sbExpr;
     private int[] res;
     private int[] len;
