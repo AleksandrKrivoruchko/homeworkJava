@@ -12,7 +12,6 @@ public class RestoreExpression {
         str = inputStr;
         parseToSB();
         initializationLen();
-        calcOneArgExpr();
     }
 
     public StringBuilder[] getSbExpr() {
@@ -23,21 +22,135 @@ public class RestoreExpression {
         return res;
     }
 
-    private void calcOneArgExpr() {
+    public String isResultExpr() {
+        String tmpStr = String.format("Для уравнения %s решения нет", str);
+        if (len[arg0] > len[arg2] || len[arg1] > len[arg2]) {
+            return tmpStr;
+        }
+        if (calcOneArgExpr()) {
+            return String.format("%d + %d = %d",
+                    res[arg0], res[arg1], res[arg2]);
+        }
+        return tmpStr;
+    }
+
+    private boolean calcThreeArgExpr(int k) {
+        int[] tmpArr = copyArray(res);
+        for (int j = 0; j < 10; j++) {
+            sbExpr[arg0].setCharAt(len[arg0], getChar(j));
+            if(calcTwoArgExpr(k)) {
+                return true;
+            }
+            res = copyArray(tmpArr);
+        }
+        return false;
+    }
+
+    private boolean calcTwoArgExpr(int k) {
+        int[] tmpArr = copyArray(res);
+        for (int i = 0; i < countArgs; i++) {
+            if (sbExpr[i].charAt(len[i]) == '?') {
+                for (int j = 0; j < 10; j++) {
+                    sbExpr[i].setCharAt(len[i], getChar(j));
+                    fillArray(k);
+                    restoreDigit(k);
+                    if (res[arg0] + res[arg1] == res[arg2]) {
+                        return true;
+                    }
+                    res = copyArray(tmpArr);
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private int[] copyArray(int[] sourceArr) {
+        int lenArr = sourceArr.length;
+        int[] newArr = new int[lenArr];
+        for (int i = 0; i < lenArr; i++) {
+            newArr[i] = sourceArr[i];
+        }
+        return newArr;
+    }
+
+    private int countQuestion() {
+        int qCount = 0;
+        for(int i = 0; i < countArgs; i++) {
+            if (sbExpr[i].charAt(len[i]) == '?') {
+                qCount++;
+            }
+        }
+        return qCount;
+    }
+
+    private boolean calc(int x, int y, int c, int k) {
+        int tmpX = getDigit(sbExpr[x].charAt(len[x]));
+        int tmpC = getDigit(sbExpr[c].charAt(len[c]));
+        if (tmpX == -1 && tmpC == -1) {
+            res[x] += degreeOfTen(k);
+            res[c] = res[x] + res[y];
+            return true;
+        }
+        if (tmpX == -1) {
+            res[c] += tmpC * degreeOfTen(k);
+            res[x] = res[c] - res[y];
+            return true;
+        }
+        if (tmpC == -1) {
+            res[x] += tmpX * degreeOfTen(k);
+            res[c] = res[x] + res[y];
+            return true;
+        }
+        return tmpC == tmpX;
+    }
+
+    private boolean calcOneArgExpr() {
         res = new int[countArgs];
         int k = 0;
         for (; len[arg2] >= 0; decrementLen()) {
-            if(len[arg0] < 0) {
+            if(len[arg0] < 0 || len[arg1] < 0) {
+                if (len[arg0] == len[arg2]) {
+                    if(calc(arg0, arg0, arg2, k)) {
+                    k++;
+                    continue;
+                    }
+                    return false;
+                }
+                if (len[arg1] == len[arg2]) {
+                    if (calc(arg1, arg0, arg2, k)) {
+                        k++;
+                        continue;
+                    }
+                    return false;
+                }
                 break;
             }
+            if(countQuestion() == 3) {
+                if(!calcThreeArgExpr(k)) {
+                    return false;
+                }
+                k++;
+                continue;
+            }
+            if(countQuestion() == 2) {
+                if(!calcTwoArgExpr(k)){
+                    return false;
+                }
+                k++;
+                continue;
+            }
             if(fillArray(k)) {
+                if (res[arg0] + res[arg1] != res[arg2]) {
+                    return false;
+                }
                 k++;
                 continue;
             }
             restoreDigit(k);
             k++;
         }
-
+        return res[arg0] + res[arg1] == res[arg2];
     }
 
     private boolean fillArray(int k) {

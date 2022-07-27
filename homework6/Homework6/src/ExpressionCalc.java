@@ -4,18 +4,10 @@
 
 public class ExpressionCalc {
     public static void main(String[] args) {
-        String strExpr = "2? + 65 = ??3";
+        String strExpr = "9? + ??5 = ?93";
         System.out.println(strExpr);
         RestoreExpression re = new RestoreExpression(strExpr);
-//        StringBuilder[] cb = re.getSbExpr();
-//        for(StringBuilder c : cb) {
-//            System.out.printf("%s  ", c);
-//        }
-//        System.out.println();
 
-        int[] res = re.getRes();
-        for (int x : res) {
-            System.out.printf("%d ", x);
-        }
+        System.out.println(re.isResultExpr());
     }
 }
