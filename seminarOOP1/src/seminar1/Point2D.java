@@ -32,8 +32,8 @@ public class Point2D {
     public void setY(int y) {
         this.y = y;
     }
-
-    public String toStirng() {
-        return String.format("Точка с координатами x = %d, y = %d", getX(), getY());
+    @Override
+    public String toString() {
+        return String.format("(%d, %d)", getX(), getY());
     }
 }
