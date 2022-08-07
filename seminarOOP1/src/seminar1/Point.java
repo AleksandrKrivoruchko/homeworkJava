@@ -1,19 +1,19 @@
 package seminar1;
 
-public class Point2D {
+public class Point {
     private int x;
     private int y;
 
-    public Point2D(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Point2D(int value) {
+    public Point(int value) {
         this(value, value);
     }
 
-    public Point2D() {
+    public Point() {
         this(0);
     }
 
@@ -32,8 +32,13 @@ public class Point2D {
     public void setY(int y) {
         this.y = y;
     }
+
+    public double distance(Point dot) {
+        return Math.sqrt(Math.pow(x - dot.getX(), 2)
+                + Math.pow(y - dot.getY(), 2));
+    }
     @Override
     public String toString() {
-        return String.format("(%d, %d)", getX(), getY());
+        return String.format("(%d, %d)", x, y);
     }
 }

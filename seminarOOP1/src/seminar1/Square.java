@@ -1,22 +1,24 @@
 package seminar1;
 
 public class Square extends Shape{
-    private Point2D topLeft;
-    private Point2D bottomRight;
-    private Point2D topRight;
-    private Point2D bottomLeft;
+    private Point dot;
+    private double len;
 
-    public Square(Point2D topLeft, Point2D bottomRight,
-                  Point2D topRight, Point2D bottomLeft, String color) {
-        super(color);
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
-        this.topRight = topRight;
-        this.bottomLeft = bottomLeft;
+
+    public Square(Point dot, double len, Color c) {
+        color = c;
+        this.dot = dot;
+        this.len = len;
     }
 
     @Override
     public double area() {
-        return (topRight.getX() - topLeft.getX()) * (bottomRight.getY() - topRight.getY());
+        return len * len;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Квадрат со стороной %.2f цвет %s площадь %.2f",
+                len, color, area());
     }
 }
