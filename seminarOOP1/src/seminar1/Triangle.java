@@ -14,11 +14,15 @@ public class Triangle extends Shape{
 
     @Override
     public double area() {
-        return a.distance(b) * a.distance(c) / 2;
+        double ab = a.distance(b);
+        double ac = a.distance(c);
+        double bc = b.distance(c);
+        double hM = (ab + ac + bc) / 2;
+        return Math.sqrt(hM * (hM - ab) * (hM - ac) * (hM - bc));
     }
 
     @Override
     public String toString() {
-        return String.format("Треугольник с площадью %.2f, цвет %s", area(), color);
+        return String.format("Треугольник цвет %s площадь %.2f", color, area());
     }
 }
