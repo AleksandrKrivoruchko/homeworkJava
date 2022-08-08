@@ -1,5 +1,5 @@
 public class RestoreExpression {
-    private String str;
+    final private String str;
     final private int countArgs = 3;
     final private int arg0 = 0;
     final private int arg1 = 1;
@@ -12,14 +12,6 @@ public class RestoreExpression {
         str = inputStr;
         parseToSB();
         initializationLen();
-    }
-
-    public StringBuilder[] getSbExpr() {
-        return sbExpr;
-    }
-
-    public int[] getRes() {
-        return res;
     }
 
     public String isResultExpr() {
