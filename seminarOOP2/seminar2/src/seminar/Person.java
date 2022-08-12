@@ -8,8 +8,11 @@ import static java.util.Objects.nonNull;
 
 public class Person {
     private String fullName;
+    private String gender;
     private LocalDate birthdate;
     private List<Person> children = new ArrayList<>();
+
+    protected Family family = new Family();
 
     public Person(String fullName, LocalDate birthdate) {
         this.fullName = fullName;
@@ -18,6 +21,10 @@ public class Person {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public LocalDate getBirthdate() {
