@@ -2,6 +2,6 @@ package homework;
 
 public interface WorkWithPerson <T> {
     void addPerson(T t);
-//    boolean equals(Object o);
+    String personToString(T t, String indent);
 
 }

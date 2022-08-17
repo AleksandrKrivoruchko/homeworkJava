@@ -29,6 +29,10 @@ public class Person implements WorkWithPerson<Person>{
         return birthdate;
     }
 
+    public List<Person> getChildren() {
+        return children;
+    }
+
     @Override
     public String toString() {
         return String.format("gender: %s, fullName: %s, birthdate: %s, count children: %d",
@@ -38,6 +42,18 @@ public class Person implements WorkWithPerson<Person>{
     @Override
     public void addPerson(Person person) {
         children.add(person);
+    }
+
+    @Override
+    public String personToString(Person person, String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent + person.fullName + "\n");
+        if(person.getChildren().size() > 0) {
+            for (Person p: person.getChildren()) {
+                sb.append(personToString(p, indent + "  "));
+            }
+        }
+        return sb.toString();
     }
 
     @Override
