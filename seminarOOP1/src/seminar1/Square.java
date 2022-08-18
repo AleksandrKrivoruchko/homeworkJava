@@ -1,13 +1,12 @@
 package seminar1;
 
 public class Square extends Shape{
-    private Point dot;
+
     private double len;
 
 
-    public Square(Point dot, double len, Color c) {
+    public Square(double len, Color c) {
         color = c;
-        this.dot = dot;
         this.len = len;
     }
 

@@ -1,14 +1,12 @@
 package seminar1;
 
 public class Circle extends Shape{
-    private Point dot;
     private double radius;
 
 
 
-    public Circle(Point dot, double radius, Color c) {
+    public Circle(double radius, Color c) {
         color = c;
-        this.dot = dot;
         this.radius = radius;
     }
 

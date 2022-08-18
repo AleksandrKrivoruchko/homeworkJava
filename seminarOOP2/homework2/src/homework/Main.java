@@ -5,43 +5,42 @@ import java.time.Month;
 
 public class Main {
     public static void main(String[] args) {
-        WorkWithPerson maria = new Person(Gender.FEMALE, "Maria", LocalDate.of(1973, Month.AUGUST,
+        WorkWithPerson maria = new Person(Gender.FEMALE, "Maria Ivanova", LocalDate.of(1973, Month.AUGUST,
                 12));
-        WorkWithPerson person = new Person(Gender.FEMALE, "Svetlana" , LocalDate.of(1984,
+        WorkWithPerson person = new Person(Gender.FEMALE, "Svetlana Petrova" , LocalDate.of(1980,
                 Month.AUGUST, 10));
-        WorkWithPerson p1 = new Person(Gender.FEMALE, "Svetlana1" , LocalDate.of(1980,
+        WorkWithPerson p1 = new Person(Gender.FEMALE, "Maria Ivanova" , LocalDate.of(1985,
                 Month.APRIL, 15));
-        WorkWithPerson p2 = new Person(Gender.FEMALE, "Svetlana2" , LocalDate.of(1904,
+        WorkWithPerson p2 = new Person(Gender.FEMALE, "Svetlana Petrova" , LocalDate.of(1904,
                 Month.JANUARY, 10));
-        WorkWithPerson p3 = new Person(Gender.FEMALE, "Sv1" , LocalDate.now());
-        WorkWithPerson p4 = new Person(Gender.FEMALE, "Sv2" , LocalDate.now());
-        p1.addPerson(p3);
+        WorkWithPerson p3 = new Person(Gender.MALE, "Petr Sergeev" , LocalDate.of(2001,
+                Month.APRIL, 30));
+        WorkWithPerson p4 = new Person(Gender.MALE, "Semen Semenov" , LocalDate.now());
         p1.addPerson(p4);
-        System.out.println(person);
-        maria.addPerson(person);
+        p1.addPerson(p3);
+
+
         maria.addPerson(p1);
         maria.addPerson(p2);
+        maria.addPerson(person);
 
         System.out.println(maria);
-        WorkWithPerson test = new Person(Gender.MALE, "Djeck", LocalDate.of(1943,
+        WorkWithPerson ivan = new Person(Gender.MALE, "Ivan", LocalDate.of(1943,
                 Month.JANUARY, 20));
-        test.addPerson(maria);
-        System.out.println(test);
-        System.out.println(test.equals(maria));
-        WorkWithPerson t1 = new Person(Gender.MALE, "Djeck", LocalDate.of(1943,
-                Month.JANUARY, 20));
-        System.out.println(test.equals(t1));
-        test.addPerson(person);
-        String s = test.personToString(test, "");
+        ivan.addPerson(maria);
+        System.out.println(ivan);
+
+        ivan.addPerson(person);
+        String s = ivan.personToString(ivan, "");
         System.out.println(s);
         maria.sort();
         WorkWithPerson familyTree = new FamilyTree();
-        familyTree.addPerson(test);
+        familyTree.addPerson(ivan);
         familyTree.addPerson(maria);
-        familyTree.addPerson(test);
+        familyTree.addPerson(ivan);
         familyTree.addPerson(p2);
         familyTree.sort();
-//        s = familyTree.toString();
+
         System.out.println(familyTree);
     }
 }

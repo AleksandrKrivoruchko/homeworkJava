@@ -8,10 +8,10 @@ public class Main {
         Point dot1 = new Point();
         Point dot2 = new Point(4);
         Point dot3 = new Point(4, 2);
-        Shape circle = new Circle(dot1, 4, Color.GREEN);
-        Circle circle1 = new Circle(dot1, 5, Color.BLUE);
-        Shape square = new Square(new Point(), 4, Color.RED);
-        Square square1 = new Square(dot3, 9, Color.WHITE);
+        Shape circle = new Circle(4, Color.GREEN);
+        Circle circle1 = new Circle(5, Color.BLUE);
+        Shape square = new Square(4, Color.RED);
+        Square square1 = new Square(9, Color.WHITE);
         Shape triangle = new Triangle(dot1, dot2, dot3, Color.BLUE);
         Point dot11 = new Point(10, 15);
         Point dot12 = new Point(10, 0);
