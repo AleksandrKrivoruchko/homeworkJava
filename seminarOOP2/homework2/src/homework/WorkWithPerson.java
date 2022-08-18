@@ -5,7 +5,7 @@ public interface WorkWithPerson <T> {
     String personToString(T t, String indent);
     int compareTo(T t, T p);
 
-    public boolean contains(T t);
+    boolean contains(T t);
 
-    public void sort();
+    void sort();
 }

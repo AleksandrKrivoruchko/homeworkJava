@@ -21,6 +21,7 @@ public class FamilyTree implements WorkWithPerson<Person>{
         return p.personToString(p, indent);
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Person p: family) {
