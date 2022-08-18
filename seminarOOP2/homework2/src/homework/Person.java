@@ -41,7 +41,8 @@ public class Person implements WorkWithPerson<Person>{
 
     @Override
     public void addPerson(Person person) {
-        children.add(person);
+        if(!contains(person) && compareTo(person) < 0)
+            children.add(person);
     }
 
     @Override
@@ -57,10 +58,39 @@ public class Person implements WorkWithPerson<Person>{
     }
 
     @Override
+    public int compareTo(Person person, Person p) {
+        return person.compareTo(p);
+    }
+
+    @Override
     public boolean equals(Object o) {
         Person p = (Person) o;
         return this.gender.equals(p.gender) &&
                 this.fullName.equals(p.fullName) &&
                 this.birthdate.equals(p.birthdate);
+    }
+
+    public int compareTo(Person p) {
+        return Integer.compare(birthdate.getYear(), p.getBirthdate().getYear());
+    }
+
+    @Override
+    public boolean contains(Person p) {
+        for (Person person: children) {
+            if(p.equals(person)) {
+                return true;
+            }
+            if(person.getChildren().size() > 0) {
+                if(person.contains(p)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void sort() {
+        children.sort(Person::compareTo);
     }
 }
