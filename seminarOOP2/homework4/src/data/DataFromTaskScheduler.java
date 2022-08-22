@@ -2,47 +2,48 @@ package data;
 
 import java.time.LocalDateTime;
 
-public class DataFromTaskScheduler {
-    private Level level;
-    private static int idTask = 0;
-    private LocalDateTime taskDefinitionTime;
+public class DataFromTaskScheduler extends Task{
+    private static int id = 1;
+    private LocalDateTime taskAddedTime;
     private LocalDateTime deadlineTask;
     private String fullName;
 
-    public Level getLevel() {
-        return level;
-    }
-
-    public DataFromTaskScheduler(LocalDateTime taskDefinitionTime,
+    public DataFromTaskScheduler(String task,
+                                 LocalDateTime taskAddedTime,
                                  LocalDateTime deadlineTask,
                                  String fullName, Level level) {
-        setTaskDefinitionTime(taskDefinitionTime);
+        super(level, id, task);
+        setTaskAddedTime(taskAddedTime);
         setDeadlineTask(deadlineTask);
         setFullName(fullName);
-        setLevel(level);
-        idTask++;
+        id++;
     }
 
-    public DataFromTaskScheduler(LocalDateTime taskDefinitionTime,
+    public DataFromTaskScheduler(String task,
+                                 LocalDateTime taskAddedTime,
                                  LocalDateTime deadlineTask,
                                  String fullName) {
-        this(taskDefinitionTime, deadlineTask, fullName, Level.LOW);
+        this(task, taskAddedTime, deadlineTask, fullName, Level.LOW);
     }
 
-    public void setLevel(Level level) {
-        this.level = level;
+    public DataFromTaskScheduler(String task,
+                                 LocalDateTime deadlineTask,
+                                 String fullName, Level level) {
+        this(task, LocalDateTime.now(), deadlineTask, fullName, level);
     }
 
-    public int getIdTask() {
-        return idTask;
+    public DataFromTaskScheduler(String task,
+                                 LocalDateTime deadlineTask,
+                                 String fullName) {
+        this(task, LocalDateTime.now(), deadlineTask, fullName, Level.LOW);
     }
 
-    public LocalDateTime getTaskDefinitionTime() {
-        return taskDefinitionTime;
+    public LocalDateTime getTaskAddedTime() {
+        return taskAddedTime;
     }
 
-    public void setTaskDefinitionTime(LocalDateTime taskDefinitionTime) {
-        this.taskDefinitionTime = taskDefinitionTime;
+    public void setTaskAddedTime(LocalDateTime taskAddedTime) {
+        this.taskAddedTime = taskAddedTime;
     }
 
     public LocalDateTime getDeadlineTask() {
@@ -63,7 +64,7 @@ public class DataFromTaskScheduler {
 
     @Override
     public String toString() {
-        return String.format("id: %d\nadded: %s\ndeadline: %s\nfull name: %s",
-                idTask, taskDefinitionTime, deadlineTask, fullName);
+        return String.format("id: %d\nadded: %s\ndeadline: %s\nfull name: %s\n %s",
+                idTask, taskAddedTime, deadlineTask, fullName, task);
     }
 }

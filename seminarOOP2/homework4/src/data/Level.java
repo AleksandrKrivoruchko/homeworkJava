@@ -4,22 +4,14 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public enum Level implements Iterable<String>{
-    LOW, HIGH, MIDDLE;
-
-    @Override
-    public Iterator<String> iterator() {
-
-        return null;
+public enum Level {
+    LOW("Высокий"), HIGH("Низкий"), MIDDLE("Средний");
+    private String name;
+    private Level(String s){
+        name = s;
     }
 
-    @Override
-    public void forEach(Consumer<? super String> action) {
-        Iterable.super.forEach(action);
-    }
-
-    @Override
-    public Spliterator<String> spliterator() {
-        return Iterable.super.spliterator();
+    public String getName() {
+        return name;
     }
 }

@@ -1,14 +1,22 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import interfaceTask.WorkWithConsole;
-public class DataStorage implements WorkWithConsole{
-    List<DataFromTaskScheduler> highLevel = new ArrayList<>();
-    List<DataFromTaskScheduler> middleLevel = new ArrayList<>();
-    List<DataFromTaskScheduler> lowLevel = new ArrayList<>();
+public class DataStorage <T extends Task> implements WorkWithConsole{
+    Map<Level, List<T>> mp = new HashMap<>();
 
+    public DataStorage() {
+        mp.put(Level.HIGH, new ArrayList<>());
+        mp.put(Level.MIDDLE, new ArrayList<>());
+        mp.put(Level.LOW, new ArrayList<>());
+    }
+    public void addElement(T d) {
+        mp.get(d.getLevel()).add(d);
+    }
     @Override
     public void inputTask() {
 
@@ -17,7 +25,13 @@ public class DataStorage implements WorkWithConsole{
     @Override
     public StringBuilder printTask() {
         StringBuilder sb = new StringBuilder();
-
-        return null;
+        for (Level k: mp.keySet()) {
+            if(mp.get(k).isEmpty()) continue;
+            sb.append("Приоритет задачи " +k.getName() + ":\n");
+            for (var v: mp.get(k)) {
+                sb.append(v.toString() + "\n");
+            }
+        }
+        return sb;
     }
 }
