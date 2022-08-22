@@ -12,12 +12,28 @@ public class MyDateTime {
     }
 
     public MyDateTime(LocalDateTime dt) {
-        this.date = dt.toLocalDate().toString();
-        this.time = dt.getHour() + ":" + dt.getMinute();
+        this.date = formatTime(dt.getDayOfMonth()) + "."
+                + formatTime(dt.getMonthValue()) + "."
+                + dt.getYear();
+        this.time = formatTime(dt.getHour()) + ":"
+                + formatTime(dt.getMinute());
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    private String formatTime(int t) {
+        String tmp = Integer.toString(t);
+        return tmp.length() > 1 ? tmp : "0" + tmp;
     }
 
     public LocalDateTime getLocalDateTime() {
-        String[] tmpDate = date.split("-");
+        String[] tmpDate = date.split(".");
         String[] tmpTime = time.split(":");
         return LocalDateTime.of(Integer.getInteger(tmpDate[0]),
                 Integer.getInteger(tmpDate[1]),

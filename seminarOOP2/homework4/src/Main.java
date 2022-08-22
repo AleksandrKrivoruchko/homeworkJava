@@ -15,10 +15,10 @@ public class Main {
         System.out.println(task);
         task.setIdTask(20);
         Task task1 = new DataFromTaskScheduler(t,
-                LocalDateTime.of(2022, 9, 10, 20, 10),
+                LocalDateTime.of(2022, 9, 10, 2, 1),
                 "Семенов Семен", Level.HIGH);
         Task task2 = new DataFromTaskScheduler(t,
-                LocalDateTime.of(2022, 8, 8, 12, 30),
+                LocalDateTime.of(2022, 8, 8, 2, 30),
                 "Иванов Иван Иванович");
         DataStorage ds = new DataStorage();
         ds.addElement(task);

@@ -64,7 +64,10 @@ public class DataFromTaskScheduler extends Task{
 
     @Override
     public String toString() {
-        return String.format("id: %d\nadded: %s\ndeadline: %s\nfull name: %s\n %s",
-                idTask, taskAddedTime, deadlineTask, fullName, task);
+        MyDateTime tmpAdd = new MyDateTime(taskAddedTime);
+        MyDateTime tmpD = new MyDateTime(deadlineTask);
+        return String.format("id: %d\nadded: %s %s\ndeadline: %s %s\nfull name: %s\n %s",
+                idTask, tmpAdd.getDate(), tmpAdd.getTime(),
+                tmpD.getDate(), tmpD.getTime(), fullName, task);
     }
 }
