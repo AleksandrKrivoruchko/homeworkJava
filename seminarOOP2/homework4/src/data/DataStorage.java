@@ -14,6 +14,11 @@ public class DataStorage <T extends Task> implements WorkWithConsole{
         mp.put(Level.MIDDLE, new ArrayList<>());
         mp.put(Level.LOW, new ArrayList<>());
     }
+
+    public Map<Level, List<T>> getMp() {
+        return mp;
+    }
+
     public void addElement(T d) {
         mp.get(d.getLevel()).add(d);
     }

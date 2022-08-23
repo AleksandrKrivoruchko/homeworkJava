@@ -2,6 +2,8 @@ import data.DataFromTaskScheduler;
 import data.DataStorage;
 import data.Level;
 import data.Task;
+import fileWork.WorkCsv;
+import interfaceTask.WorkWithIOFile;
 
 import java.time.LocalDateTime;
 
@@ -25,5 +27,10 @@ public class Main {
         ds.addElement(task1);
         ds.addElement(task2);
         System.out.println(ds.printTask());
+        WorkWithIOFile fileWork = new WorkCsv("data.csv");
+        fileWork.save(ds);
+        DataStorage ds1 = new DataStorage<>();
+        fileWork.read(ds1);
+        System.out.println("\n\n" + ds1.printTask());
     }
 }

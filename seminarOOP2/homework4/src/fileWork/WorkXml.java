@@ -1,4 +1,5 @@
 package fileWork;
+import data.DataStorage;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -21,12 +22,12 @@ public class WorkXml implements WorkWithIOFile{
     }
 
     @Override
-    public void save() {
+    public void save(DataStorage ds) {
 
     }
 
     @Override
-    public void read() {
+    public void read(DataStorage ds) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             SAXParser parser = factory.newSAXParser();
