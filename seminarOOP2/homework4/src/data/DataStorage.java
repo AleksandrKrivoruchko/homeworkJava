@@ -32,8 +32,8 @@ public class DataStorage <T extends Task> implements WorkWithConsole{
         StringBuilder sb = new StringBuilder();
         for (Level k: mp.keySet()) {
             if(mp.get(k).isEmpty()) continue;
-            sb.append("Приоритет задачи " +k.getName() + ":\n");
-            for (var v: mp.get(k)) {
+            sb.append("Приоритет задачи " + k.getName() + ":\n");
+            for (T v: mp.get(k)) {
                 sb.append(v.toString() + "\n");
             }
         }
