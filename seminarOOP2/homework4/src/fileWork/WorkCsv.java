@@ -61,9 +61,11 @@ public class WorkCsv implements WorkWithIOFile {
             }
                 String[] arr = s.split(",");
                 Level l = getLevel(arr[0]);
+                MyDateTime add = new MyDateTime(arr[2], arr[3]);
+                MyDateTime end = new MyDateTime(arr[4], arr[5]);
                 Task task = new DataFromTaskScheduler(arr[7],
-                        (new MyDateTime(arr[2], arr[3])).getLocalDateTime(),
-                        new MyDateTime(arr[4], arr[5]).getLocalDateTime(),
+                        add.getLocalDateTime(),
+                        end.getLocalDateTime(),
                         arr[6], l);
                 task.setIdTask(Integer.parseInt(arr[1]));
                 ds.addElement(task);
@@ -73,7 +75,7 @@ public class WorkCsv implements WorkWithIOFile {
 
     private Level getLevel(String s) {
         Level l;
-        if (s.equals("HIGTH")) {
+        if (s.equals("HIGH")) {
             l = Level.HIGH;
         } else if (s.equals("MIDDLE")) {
             l = Level.MIDDLE;

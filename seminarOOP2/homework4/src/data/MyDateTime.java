@@ -33,12 +33,12 @@ public class MyDateTime {
     }
 
     public LocalDateTime getLocalDateTime() {
-        String[] tmpDate = date.split(".");
+        String[] tmpDate = date.split("\\.");
         String[] tmpTime = time.split(":");
-        return LocalDateTime.of(Integer.getInteger(tmpDate[0]),
-                Integer.getInteger(tmpDate[1]),
-                Integer.getInteger(tmpDate[2]),
-                Integer.getInteger(tmpTime[0]),
-                Integer.getInteger(tmpTime[1]));
+        return LocalDateTime.of(Integer.parseInt(tmpDate[2]),
+                Integer.parseInt(tmpDate[1]),
+                Integer.parseInt(tmpDate[0]),
+                Integer.parseInt(tmpTime[0]),
+                Integer.parseInt(tmpTime[1]));
     }
 }
