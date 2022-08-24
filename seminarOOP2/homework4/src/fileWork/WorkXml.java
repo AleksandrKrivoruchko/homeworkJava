@@ -47,24 +47,43 @@ public class WorkXml implements WorkWithIOFile{
     public DataStorage read() {
         DataStorage ds = new DataStorage<>();
         File file = new File(fileName);
-        Document document = null;
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            document = builder.parse(file);
+            Document document = builder.parse(file);
+
+            Node root = document.getDocumentElement();
+            NodeList tmp = root.getChildNodes();
+            for (int i = 0; i < tmp.getLength(); i++) {
+                Node tmp1 = tmp.item(i);
+                if (tmp1.getNodeType() != Node.TEXT_NODE) {
+                    NodeList tmp2 = tmp1.getChildNodes();
+                    System.out.println(tmp1.getNodeName());
+                    for (int j = 0; j < tmp2.getLength(); j++) {
+                        Node tmp3 = tmp2.item(j);
+                        if (tmp3.getNodeType() != Node.TEXT_NODE) {
+                            System.out.println("---" + j);
+                            NodeList tmp4 = tmp3.getChildNodes();
+                            for (int k = 0; k < tmp4.getLength(); k++) {
+                                Node tmp5 = tmp4.item(k);
+                                if (tmp5.getNodeType() != Node.TEXT_NODE) {
+                                    System.out.println("****" + k);
+                                    System.out.println(tmp5.getNodeName()
+                                            + " : " +
+                                            tmp5.getChildNodes().item(0)
+                                                    .getTextContent());
+                                }
+                            }
+                        }
+
+
+                    }
+                    System.out.println(i);
+                }
+            }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        }
-        if (document != null) {
-            NodeList levelList = document.getDocumentElement().getChildNodes();
-            for (int i = 0; i < levelList.getLength(); i++) {
-                    Node nd = levelList.item(i);
-                    if(nd.getNodeType() == Node.TEXT_NODE) {
-
-                            System.out.println(nd);
-                    }
-                }
         }
         return ds;
         }
