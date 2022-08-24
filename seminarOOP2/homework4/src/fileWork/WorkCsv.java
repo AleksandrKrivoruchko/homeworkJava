@@ -23,7 +23,7 @@ public class WorkCsv implements WorkWithIOFile {
         File file = new File(fileName);
         try {
             FileWriter fw = new FileWriter(file);
-            Map<Level, List<Task>> mp = ds.getMp();
+            Map<Level, List<Task>> mp = ds.getHm();
             for (Level k: mp.keySet()) {
                 if(mp.get(k).isEmpty()) {
                     continue;
@@ -48,7 +48,8 @@ public class WorkCsv implements WorkWithIOFile {
     }
 
     @Override
-    public void read(DataStorage ds) {
+    public DataStorage read() {
+        DataStorage ds = new DataStorage();
         List<String> ls = new ArrayList<>();
         try {
             ls = Files.readAllLines(Paths.get(fileName));
@@ -71,6 +72,7 @@ public class WorkCsv implements WorkWithIOFile {
                 ds.addElement(task);
 
         }
+        return ds;
     }
 
     private Level getLevel(String s) {

@@ -7,20 +7,20 @@ import java.util.Map;
 
 import interfaceTask.WorkWithConsole;
 public class DataStorage <T extends Task> implements WorkWithConsole{
-    Map<Level, List<T>> mp = new HashMap<>();
+    Map<Level, List<T>> hm = new HashMap<>();
 
     public DataStorage() {
-        mp.put(Level.HIGH, new ArrayList<>());
-        mp.put(Level.MIDDLE, new ArrayList<>());
-        mp.put(Level.LOW, new ArrayList<>());
+        hm.put(Level.HIGH, new ArrayList<>());
+        hm.put(Level.MIDDLE, new ArrayList<>());
+        hm.put(Level.LOW, new ArrayList<>());
     }
 
-    public Map<Level, List<T>> getMp() {
-        return mp;
+    public Map<Level, List<T>> getHm() {
+        return hm;
     }
 
     public void addElement(T d) {
-        mp.get(d.getLevel()).add(d);
+        hm.get(d.getLevel()).add(d);
     }
     @Override
     public void inputTask() {
@@ -30,10 +30,10 @@ public class DataStorage <T extends Task> implements WorkWithConsole{
     @Override
     public StringBuilder printTask() {
         StringBuilder sb = new StringBuilder();
-        for (Level k: mp.keySet()) {
-            if(mp.get(k).isEmpty()) continue;
+        for (Level k: hm.keySet()) {
+            if(hm.get(k).isEmpty()) continue;
             sb.append("Приоритет задачи " + k.getName() + ":\n");
-            for (T v: mp.get(k)) {
+            for (T v: hm.get(k)) {
                 sb.append(v.toString() + "\n");
             }
         }

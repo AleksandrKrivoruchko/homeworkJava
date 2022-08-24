@@ -3,6 +3,7 @@ import data.DataStorage;
 import data.Level;
 import data.Task;
 import fileWork.WorkCsv;
+import fileWork.WorkXml;
 import interfaceTask.WorkWithIOFile;
 
 import java.time.LocalDateTime;
@@ -29,8 +30,13 @@ public class Main {
         System.out.println(ds.printTask());
         WorkWithIOFile fileWork = new WorkCsv("data.csv");
 //        fileWork.save(ds);
-        DataStorage ds1 = new DataStorage<>();
-        fileWork.read(ds1);
+//        DataStorage<Task> ds1 = new DataStorage<>();
+        DataStorage ds1 = fileWork.read();
         System.out.println("\n\n" + ds1.printTask());
+        fileWork = new WorkXml("dataXML.xml");
+        fileWork.save(ds1);
+        DataStorage ds3 = fileWork.read();
+        System.out.println("-----------------------------------------");
+        System.out.println(ds3.printTask());
     }
 }

@@ -4,5 +4,5 @@ import data.DataStorage;
 
 public interface WorkWithIOFile {
     void save(DataStorage ds);
-    void read(DataStorage ds);
+    DataStorage read();
 }

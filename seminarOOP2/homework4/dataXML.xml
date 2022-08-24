@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listTasks>
+    <HIGH>
+        <task>
+            <id>2</id>
+            <addDate>23.08.2022</addDate>
+            <addTime>15:44</addTime>
+            <deadlineDate>10.09.2022</deadlineDate>
+            <deadlineTime>02:01</deadlineTime>
+            <fullName>Семенов Семен</fullName>
+            <textTask>Закончить программу</textTask>
+        </task>
+    </HIGH>
+    <LOW>
+        <task>
+            <id>20</id>
+            <addDate>23.08.2022</addDate>
+            <addTime>15:44</addTime>
+            <deadlineDate>28.08.2022</deadlineDate>
+            <deadlineTime>12:30</deadlineTime>
+            <fullName>Иванов Иван</fullName>
+            <textTask>Закончить программу</textTask>
+        </task>
+        <task>
+            <id>3</id>
+            <addDate>23.08.2022</addDate>
+            <addTime>15:44</addTime>
+            <deadlineDate>08.08.2022</deadlineDate>
+            <deadlineTime>02:30</deadlineTime>
+            <fullName>Иванов Иван Иванович</fullName>
+            <textTask>Закончить программу</textTask>
+        </task>
+    </LOW>
+</listTasks>
