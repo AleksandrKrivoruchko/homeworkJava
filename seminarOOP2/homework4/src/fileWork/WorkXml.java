@@ -1,6 +1,7 @@
 package fileWork;
 import data.*;
 
+import interfaceTask.HelperIOFile;
 import interfaceTask.WorkWithIOFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -14,7 +15,7 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
 
-public class WorkXml implements WorkWithIOFile{
+public class WorkXml implements HelperIOFile{
     private String fileName;
 
     public WorkXml(String s) {
@@ -47,6 +48,7 @@ public class WorkXml implements WorkWithIOFile{
     public DataStorage read() {
         DataStorage ds = new DataStorage<>();
         File file = new File(fileName);
+        String[] str = new String[8];
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -55,49 +57,29 @@ public class WorkXml implements WorkWithIOFile{
 
             Node root = document.getDocumentElement();
             NodeList tmp = root.getChildNodes();
-            for (int i = 0; i < tmp.getLength(); i++) {
-                Node tmp1 = tmp.item(i);
-                if (tmp1.getNodeType() != Node.TEXT_NODE) {
-                    NodeList tmp2 = tmp1.getChildNodes();
-                    System.out.println(tmp1.getNodeName());
-                    for (int j = 0; j < tmp2.getLength(); j++) {
-                        Node tmp3 = tmp2.item(j);
-                        if (tmp3.getNodeType() != Node.TEXT_NODE) {
-                            System.out.println("---" + j);
-                            NodeList tmp4 = tmp3.getChildNodes();
-                            for (int k = 0; k < tmp4.getLength(); k++) {
-                                Node tmp5 = tmp4.item(k);
-                                if (tmp5.getNodeType() != Node.TEXT_NODE) {
-                                    System.out.println("****" + k);
-                                    System.out.println(tmp5.getNodeName()
-                                            + " : " +
-                                            tmp5.getChildNodes().item(0)
-                                                    .getTextContent());
-                                }
-                            }
-                        }
-
-
+            for (int i = 1; i < tmp.getLength(); i+=2) {
+                Node l = tmp.item(i);
+                NodeList tmp2 = l.getChildNodes();
+                str[0] = l.getNodeName();
+                for (int j = 1; j < tmp2.getLength(); j+=2) {
+                    Node tmp3 = tmp2.item(j);
+                    NodeList tmp4 = tmp3.getChildNodes();
+                    for (int k = 1, m = 1; k < tmp4.getLength(); k+=2, m++) {
+                         str[m] = tmp4.item(k).getChildNodes()
+                                .item(0).getTextContent();
                     }
-                    System.out.println(i);
+                    Task t = new DataFromTaskScheduler(str[7],
+                            new MyDateTime(str[2], str[3]).getLocalDateTime(),
+                            new MyDateTime(str[4],str[5]).getLocalDateTime(),
+                            str[6], getLevel(str[0]));
+                    t.setIdTask(Integer.parseInt(str[1]));
+                    ds.addElement(t);
                 }
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         return ds;
-        }
-
-        private Level getLevel(String s) {
-            Level l;
-            if (s.equals("HIGH")) {
-                l = Level.HIGH;
-            } else if (s.equals("MIDDLE")) {
-                l = Level.MIDDLE;
-            } else {
-                l = Level.LOW;
-            }
-            return l;
         }
 
     private StringBuilder createXmlText(DataStorage ds) {
@@ -112,7 +94,8 @@ public class WorkXml implements WorkWithIOFile{
             if(hm.get(l).isEmpty()) {
                 continue;
             }
-            sb.append(indent).append("<").append(l).append(">\n");
+            sb.append(indent).append("<").append(l)
+                    .append(">\n");
             for (Task t : hm.get(l)) {
                 sb.append(indent2).append("<task>\n");
                 sb.append(indent3).append("<id>").append(t.getIdTask())

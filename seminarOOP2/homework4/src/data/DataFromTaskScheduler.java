@@ -66,8 +66,12 @@ public class DataFromTaskScheduler extends Task{
     public String toString() {
         MyDateTime tmpAdd = new MyDateTime(taskAddedTime);
         MyDateTime tmpD = new MyDateTime(deadlineTask);
-        return String.format("id: %d\nadded: %s %s\ndeadline: %s %s\nfull name: %s\n %s",
-                idTask, tmpAdd.getDate(), tmpAdd.getTime(),
-                tmpD.getDate(), tmpD.getTime(), fullName, task);
+        String add = String.format("Добавлена: дата %s время %s",
+                tmpAdd.getDate(), tmpAdd.getTime());
+        String end = String.format("Выполнить до: дата %s время %s",
+                tmpD.getDate(), tmpD.getTime());
+        String name = String.format("ФИО: %s", fullName);
+        return String.format("id: %d\n%s\n%s\n%s\n\tЗадача:\n  %s",
+                idTask, add, end, name, task);
     }
 }

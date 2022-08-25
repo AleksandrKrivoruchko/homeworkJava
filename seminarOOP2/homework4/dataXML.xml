@@ -2,9 +2,9 @@
 <listTasks>
     <LOW>
         <task>
-            <id>20</id>
-            <addDate>23.08.2022</addDate>
-            <addTime>15:44</addTime>
+            <id>1</id>
+            <addDate>25.08.2022</addDate>
+            <addTime>11:54</addTime>
             <deadlineDate>28.08.2022</deadlineDate>
             <deadlineTime>12:30</deadlineTime>
             <fullName>Иванов Иван</fullName>
@@ -12,8 +12,8 @@
         </task>
         <task>
             <id>3</id>
-            <addDate>23.08.2022</addDate>
-            <addTime>15:44</addTime>
+            <addDate>25.08.2022</addDate>
+            <addTime>11:54</addTime>
             <deadlineDate>08.08.2022</deadlineDate>
             <deadlineTime>02:30</deadlineTime>
             <fullName>Иванов Иван Иванович</fullName>
@@ -23,12 +23,23 @@
     <HIGH>
         <task>
             <id>2</id>
-            <addDate>23.08.2022</addDate>
-            <addTime>15:44</addTime>
+            <addDate>25.08.2022</addDate>
+            <addTime>11:54</addTime>
             <deadlineDate>10.09.2022</deadlineDate>
             <deadlineTime>02:01</deadlineTime>
             <fullName>Семенов Семен</fullName>
             <textTask>Закончить программу</textTask>
         </task>
     </HIGH>
+    <MIDDLE>
+        <task>
+            <id>4</id>
+            <addDate>04.09.2021</addDate>
+            <addTime>15:05</addTime>
+            <deadlineDate>15.09.2022</deadlineDate>
+            <deadlineTime>00:00</deadlineTime>
+            <fullName>Сидоров Петр Сергеевич</fullName>
+            <textTask>Начать изучение языка Java</textTask>
+        </task>
+    </MIDDLE>
 </listTasks>

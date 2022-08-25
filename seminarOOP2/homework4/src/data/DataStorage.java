@@ -22,21 +22,19 @@ public class DataStorage <T extends Task> implements WorkWithConsole{
     public void addElement(T d) {
         hm.get(d.getLevel()).add(d);
     }
-    @Override
-    public void inputTask() {
-
-    }
 
     @Override
     public StringBuilder printTask() {
         StringBuilder sb = new StringBuilder();
+        sb.append("------------------------------------------------\n");
         for (Level k: hm.keySet()) {
             if(hm.get(k).isEmpty()) continue;
-            sb.append("Приоритет задачи " + k.getName() + ":\n");
+            sb.append("\t\tПриоритет задачи " + k.getName() + ":\n");
             for (T v: hm.get(k)) {
                 sb.append(v.toString() + "\n");
             }
         }
+        sb.append("------------------------------------------------\n");
         return sb;
     }
 }

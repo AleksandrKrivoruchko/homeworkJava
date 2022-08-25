@@ -1,6 +1,7 @@
 package fileWork;
 
 import data.*;
+import interfaceTask.HelperIOFile;
 import interfaceTask.WorkWithIOFile;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class WorkCsv implements WorkWithIOFile {
+public class WorkCsv implements HelperIOFile {
     private String fileName;
 
     public WorkCsv(String fileName) {
@@ -73,17 +74,5 @@ public class WorkCsv implements WorkWithIOFile {
 
         }
         return ds;
-    }
-
-    private Level getLevel(String s) {
-        Level l;
-        if (s.equals("HIGH")) {
-            l = Level.HIGH;
-        } else if (s.equals("MIDDLE")) {
-            l = Level.MIDDLE;
-        } else {
-            l = Level.LOW;
-        }
-        return l;
     }
 }
